@@ -1,6 +1,14 @@
-import subprocess, time, json, random
+import subprocess, time, json, random, os
 
 lista_itens = [] 
+
+try:
+    with open("wish_list.json", "r", encoding="utf-8") as arquivo:
+        lista_itens = json.load(arquivo)
+except FileNotFoundError:
+    lista_itens = []
+    with open("wish_list.json", "w", encoding="utf-8", ensure_ascii=False) as arquivo:
+        json.dump(lista_itens, arquivo, indent=4) 
 
 def adicionar_item(nome, categoria):
     id_item = len(lista_itens) + 1
@@ -18,7 +26,6 @@ def salvar_arquivo():
     try:
         with open("wish_list.json", "w", encoding="utf-8") as arquivo:
             json.dump(lista_itens, arquivo, indent=4, ensure_ascii=False)
-        print("Arquivo salvo com sucesso!")
     except Exception:
         print("Erro genérico não tratado")
 
@@ -39,9 +46,9 @@ def listar_todos():
         listar_console(lista_itens)
     
 def pesquisar_categoria(categoria):
-    itens = ler_arquivo()
+    lista_itens = ler_arquivo()
     itens_da_categoria = []
-    for item in itens: 
+    for item in lista_itens: 
         if(item["categoria"] == categoria):
             itens_da_categoria.append(item)
     
@@ -49,6 +56,15 @@ def pesquisar_categoria(categoria):
         listar_console(itens_da_categoria)
     else:
         print("Não foram encontrados itens dessa categoria.")
+
+def remover_item(id):
+    lista_itens = ler_arquivo()
+    for index, item in enumerate(lista_itens, start=0):
+        if(item["id"] == id):
+            del lista_itens[index]
+    
+    print("Item removido com sucesso da lista!")
+    salvar_arquivo()
 
 
 def listar_console(itens):
@@ -91,14 +107,17 @@ def exibir_menu():
     for index, opcao in enumerate(opcoes, start=1):
         print(f"{index}. {opcao}")
 
-def validar_opcao_escolhida(opcao_escolhida, valor_inicial, valor_final):
+def validar_inteiro(opcao_escolhida, valor_inicial=None, valor_final=None):
     try: 
         opcao = int(opcao_escolhida)
         return opcao 
     except ValueError: 
-        return f"Entrada inválida. Digite um número entre {valor_inicial} e {valor_final}"
+        if(valor_inicial and valor_final):
+            print(f"Entrada inválida. Digite um número entre {valor_inicial} e {valor_final}")
+        else:
+            print(f"Entrada inválida. Digite um id válido")
     except Exception:
-        return f"Erro genérico não identificado"
+        print(f"Erro genérico não identificado")
     
 def solicitar_e_validar_string(frase_input):
     while True:
@@ -112,7 +131,7 @@ def solicitar_e_validar_string(frase_input):
 while True:
     exibir_menu()
     opcao_digitada = input("Digite a opção escolhida: ")
-    opcao = validar_opcao_escolhida(opcao_digitada, 1, 6)
+    opcao = validar_inteiro(opcao_digitada, 1, 6)
     
     match (opcao):
         case 1:
@@ -128,8 +147,11 @@ while True:
         case 4:
             nome = solicitar_e_validar_string("Digite o nome do item que deseja procurar: ")
             verificar_disponibilidade(nome)
-
-            
+        case 5: 
+            id = input("Digite o id do produto para remover: ")
+            id_para_buscar = validar_inteiro(id)
+            if id_para_buscar:
+                remover_item(id_para_buscar)
 
 
     time.sleep(3)

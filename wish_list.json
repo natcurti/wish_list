@@ -1,8 +1,20 @@
 [
     {
         "id": 1,
-        "nome": "Batom",
-        "categoria": "Maquiagem",
+        "nome": "Relógio",
+        "categoria": "Acessórios",
+        "disponibilidade": "Disponível"
+    },
+    {
+        "id": 2,
+        "nome": "Pulseira",
+        "categoria": "Acessórios",
+        "disponibilidade": "Indisponível"
+    },
+    {
+        "id": 3,
+        "nome": "Chocolate",
+        "categoria": "Doces",
         "disponibilidade": "Indisponível"
     }
 ]
