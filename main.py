@@ -40,6 +40,12 @@ def remover_item(id):
             del lista_itens[index]
     
     print("Item removido com sucesso da lista!")
+
+    # Atualizando os ids que já existem!
+    tamanho_lista = len(lista_itens)
+    for index in range(tamanho_lista):
+        lista_itens[index]["id"] = index + 1
+
     salvar_arquivo(lista_itens)
 
 
@@ -82,10 +88,6 @@ def exibir_menu():
 
     for index, opcao in enumerate(opcoes, start=1):
         print(f"{index}. {opcao}")
-
-
-    
-
     
 while True:
     exibir_menu()

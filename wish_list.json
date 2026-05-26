@@ -1,12 +1,6 @@
 [
     {
         "id": 1,
-        "nome": "Batom M.A.C",
-        "categoria": "Maquiagem",
-        "disponibilidade": "Indisponível"
-    },
-    {
-        "id": 3,
         "nome": "Chocolate",
         "categoria": "Doces",
         "disponibilidade": "Indisponível"
