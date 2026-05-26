@@ -1,14 +1,8 @@
 [
     {
         "id": 1,
-        "nome": "Relógio",
-        "categoria": "Acessórios",
-        "disponibilidade": "Disponível"
-    },
-    {
-        "id": 2,
-        "nome": "Pulseira",
-        "categoria": "Acessórios",
+        "nome": "Batom M.A.C",
+        "categoria": "Maquiagem",
         "disponibilidade": "Indisponível"
     },
     {
